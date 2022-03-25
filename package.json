@@ -1,8 +1,8 @@
 {
-  "name": "@apeswapfinance/sdk",
+  "name": "@dactue1006/sdk",
   "license": "MIT",
-  "version": "2.0.0-alpha.14",
-  "description": "🛠 An SDK for building applications on top of ApeSwap.",
+  "version": "1.0.31",
+  "description": "🛠 An SDK for building applications on top of ANTFINANCE.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [

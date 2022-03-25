@@ -39,7 +39,72 @@ export enum Rounding {
   ROUND_UP
 }
 
-export const INIT_CODE_HASH: { [chainId in ChainId]: string } = { 
+export const ANT_TOKEN_ADDRESS: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: '',
+  [ChainId.ROPSTEN]: '',
+  [ChainId.RINKEBY]: '',
+  [ChainId.GÖRLI]: '',
+  [ChainId.KOVAN]: '',
+  [ChainId.FANTOM]: '',
+  [ChainId.FANTOM_TESTNET]: '',
+  [ChainId.MATIC]: '',
+  [ChainId.MATIC_TESTNET]: '',
+  [ChainId.XDAI]: '',
+  [ChainId.BSC]: '',
+  [ChainId.BSC_TESTNET]: '0x2aC7A8C7101B83803f6fD8daa020E0288C36FC16',
+  [ChainId.ARBITRUM]: '',
+  [ChainId.MOONBASE]: '',
+  [ChainId.AVALANCHE]: '',
+  [ChainId.FUJI]: '',
+  [ChainId.HECO]: '',
+  [ChainId.HECO_TESTNET]: '',
+  [ChainId.HARMONY]: '',
+  [ChainId.HARMONY_TESTNET]: '',
+  [ChainId.OKEX]: '',
+  [ChainId.OKEX_TESTNET]: ''
+}
+
+export const THIRD_PARTY_INFO: { [chainId in ChainId]: any } = {
+  [ChainId.MAINNET]: '',
+  [ChainId.ROPSTEN]: '',
+  [ChainId.RINKEBY]: '',
+  [ChainId.GÖRLI]: '',
+  [ChainId.KOVAN]: '',
+  [ChainId.FANTOM]: '',
+  [ChainId.FANTOM_TESTNET]: '',
+  [ChainId.MATIC]: '',
+  [ChainId.MATIC_TESTNET]: {
+    INIT_CODE_HASH: 'e18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303', // SUSHI
+    FACTORY_ADDRESS: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', // SUSHI
+    ROUTER_ADDRESS: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', // SUSHI
+  },
+  [ChainId.XDAI]: '',
+  [ChainId.BSC]: {
+    INIT_CODE_HASH: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
+    FACTORY_ADDRESS: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
+    ROUTER_ADDRESS: '0x10ed43c718714eb63d5aa57b78b54704e256024e'
+  },
+  [ChainId.BSC_TESTNET]: {
+    INIT_CODE_HASH: '0xd0d4c4cd0848c93cb4fd1f498d7013ee6bfb25783ea21593d5834f5d250ece66', // pancake
+    // INIT_CODE_HASH: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b', // ape
+    FACTORY_ADDRESS: '0x6725f303b657a9451d8ba641348b6761a6cc7a17', // pancake
+    // FACTORY_ADDRESS: '0x152349604d49c2af10adee94b918b051104a143e', // ape
+    ROUTER_ADDRESS: '0xD99D1c33F9fC3444f8101754aBC46c52416550D1' // pancake
+    // ROUTER_ADDRESS: '0x3380ae82e39e42ca34ebed69af67faa0683bb5c1' // ape
+  },
+  [ChainId.ARBITRUM]: '',
+  [ChainId.MOONBASE]: '',
+  [ChainId.AVALANCHE]: '',
+  [ChainId.FUJI]: '',
+  [ChainId.HECO]: '',
+  [ChainId.HECO_TESTNET]: '',
+  [ChainId.HARMONY]: '',
+  [ChainId.HARMONY_TESTNET]: '',
+  [ChainId.OKEX]: '',
+  [ChainId.OKEX_TESTNET]: ''
+}
+
+export const INIT_CODE_HASH: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
   [ChainId.ROPSTEN]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
   [ChainId.RINKEBY]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
@@ -48,10 +113,11 @@ export const INIT_CODE_HASH: { [chainId in ChainId]: string } = {
   [ChainId.FANTOM]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
   [ChainId.FANTOM_TESTNET]: '',
   [ChainId.MATIC]: '0x511f0f358fe530cda0859ec20becf391718fdf5a329be02f4c95361f3d6a42d8',
-  [ChainId.MATIC_TESTNET]: '0x511f0f358fe530cda0859ec20becf391718fdf5a329be02f4c95361f3d6a42d8',
+  [ChainId.MATIC_TESTNET]: '0x51f00ce6bb1e5b932b28258c896db9ccbe8956312e3e4cf085e89e0b3bad1f45',
   [ChainId.XDAI]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
   [ChainId.BSC]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
-  [ChainId.BSC_TESTNET]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
+  // [ChainId.BSC_TESTNET]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
+  [ChainId.BSC_TESTNET]: '0x91f86f77697d13060454e80e3af9ef278a26e4add0cf29a9ab102951a85d52c5', // ant
   [ChainId.ARBITRUM]: '',
   [ChainId.MOONBASE]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
   [ChainId.AVALANCHE]: '0xf4ccce374816856d11f00e4069e7cada164065686fbef53c6167a63ec2fd8c5b',
@@ -73,10 +139,12 @@ export const FACTORY_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.FANTOM]: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
   [ChainId.FANTOM_TESTNET]: '',
   [ChainId.MATIC]: '0xCf083Be4164828f00cAE704EC15a36D711491284',
-  [ChainId.MATIC_TESTNET]: '0xe145a77c21437e3FD32ce2731833114F0B53405b',
+  [ChainId.MATIC_TESTNET]: '0x23e7D4041d469b1B683Cce8231165e92541dAd43',
   [ChainId.XDAI]: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
   [ChainId.BSC]: '0x0841BD0B734E4F5853f0dD8d7Ea041c241fb0Da6',
-  [ChainId.BSC_TESTNET]: '0x152349604d49c2af10adee94b918b051104a143e',
+  // [ChainId.BSC_TESTNET]: '0x6725f303b657a9451d8ba641348b6761a6cc7a17', // pancake
+  // [ChainId.BSC_TESTNET]: '0x152349604d49c2af10adee94b918b051104a143e', // ape
+  [ChainId.BSC_TESTNET]: '0xb5b41D981790FA5739E85206424363Dc46212BBB', // ant
   [ChainId.ARBITRUM]: '',
   [ChainId.MOONBASE]: '0x2Ce3F07dD4c62b56a502E223A7cBE38b1d77A1b5',
   [ChainId.AVALANCHE]: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
@@ -98,10 +166,12 @@ export const ROUTER_ADDRESS: { [chainId in ChainId]: string } = {
   [ChainId.FANTOM]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
   [ChainId.FANTOM_TESTNET]: '',
   [ChainId.MATIC]: '0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607',
-  [ChainId.MATIC_TESTNET]: '0x8fCf4B197A9Df7ab4ed511932cA6c8E1a8fe2F1d',
+  [ChainId.MATIC_TESTNET]: '0x5D8107cF1CF4f585CDe4646Ce2ebf329C4444c57',
   [ChainId.XDAI]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',
   [ChainId.BSC]: '0xcf0febd3f17cef5b47b0cd257acf6025c5bff3b7',
-  [ChainId.BSC_TESTNET]: '0x3380ae82e39e42ca34ebed69af67faa0683bb5c1',
+  // [ChainId.BSC_TESTNET]: '0xD99D1c33F9fC3444f8101754aBC46c52416550D1', // pancake
+  // [ChainId.BSC_TESTNET]: '0x3380ae82e39e42ca34ebed69af67faa0683bb5c1', // ape
+  [ChainId.BSC_TESTNET]: '0x30ADB4f25b1B624CaFe12385413EDABb79Da101f', // ant
   [ChainId.ARBITRUM]: '',
   [ChainId.MOONBASE]: '0xeB5c2BB5E83B51d83F3534Ae21E84336B8B376ef',
   [ChainId.AVALANCHE]: '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506',

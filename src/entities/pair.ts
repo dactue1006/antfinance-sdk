@@ -15,7 +15,8 @@ import {
   _1000,
   ChainId,
   FACTORY_ADDRESS,
-  INIT_CODE_HASH
+  INIT_CODE_HASH,
+  THIRD_PARTY_INFO
 } from '../constants'
 import { sqrt, parseBigintIsh } from '../utils'
 import { InsufficientReservesError, InsufficientInputAmountError } from '../errors'
@@ -27,18 +28,27 @@ export class Pair {
   public readonly liquidityToken: Token
   private readonly tokenAmounts: [TokenAmount, TokenAmount]
 
-  public static getAddress(tokenA: Token, tokenB: Token): string {
+  public static getAddress(tokenA: Token, tokenB: Token, isUsePancake?: boolean): string {
     const tokens = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA] // does safety checks
-
     if (PAIR_ADDRESS_CACHE?.[tokens[0].address]?.[tokens[1].address] === undefined) {
+      console.log(PAIR_ADDRESS_CACHE)
+
+      const factoryAddress = isUsePancake
+        ? THIRD_PARTY_INFO[tokenA.chainId].FACTORY_ADDRESS || FACTORY_ADDRESS[tokenA.chainId]
+        : FACTORY_ADDRESS[tokenA.chainId]
+      const initCodeHash = isUsePancake
+        ? THIRD_PARTY_INFO[tokenA.chainId].INIT_CODE_HASH || INIT_CODE_HASH[tokenA.chainId]
+        : INIT_CODE_HASH[tokenA.chainId]
+      console.log('factory: ', factoryAddress)
+      console.log('init code hash: ', initCodeHash)
       PAIR_ADDRESS_CACHE = {
         ...PAIR_ADDRESS_CACHE,
         [tokens[0].address]: {
           ...PAIR_ADDRESS_CACHE?.[tokens[0].address],
           [tokens[1].address]: getCreate2Address(
-            FACTORY_ADDRESS[tokenA.chainId],
+            factoryAddress,
             keccak256(['bytes'], [pack(['address', 'address'], [tokens[0].address, tokens[1].address])]),
-            INIT_CODE_HASH[tokenA.chainId]
+            initCodeHash
           )
         }
       }
@@ -47,16 +57,17 @@ export class Pair {
     return PAIR_ADDRESS_CACHE[tokens[0].address][tokens[1].address]
   }
 
-  public constructor(tokenAmountA: TokenAmount, tokenAmountB: TokenAmount) {
+  public constructor(tokenAmountA: TokenAmount, tokenAmountB: TokenAmount, isUsePancake?: boolean) {
     const tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
       ? [tokenAmountA, tokenAmountB]
       : [tokenAmountB, tokenAmountA]
+
     this.liquidityToken = new Token(
       tokenAmounts[0].token.chainId,
-      Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token),
+      Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token, isUsePancake),
       18,
-      'APE-LP',
-      'ApeSwap LP'
+      !isUsePancake ? 'ANT-LP' : 'CAKE-LP',
+      !isUsePancake ? 'AntFinance LP' : 'PancakeSwap LP'
     )
     this.tokenAmounts = tokenAmounts as [TokenAmount, TokenAmount]
   }
@@ -263,9 +274,9 @@ export class PancakeV2Pair extends PancakeV1Pair {
         [tokens[0].address]: {
           ...PANCAKE_V2_PAIR_ADDRESS_CACHE?.[tokens[0].address],
           [tokens[1].address]: getCreate2Address(
-            '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
+            THIRD_PARTY_INFO[tokenA.chainId].FACTORY_ADDRESS,
             keccak256(['bytes'], [pack(['address', 'address'], [tokens[0].address, tokens[1].address])]),
-            '0x00fb7f630766e6a796048ea87d01acd3068e8ff67d078148a3fa3f4a84f69bd5'
+            THIRD_PARTY_INFO[tokenA.chainId].INIT_CODE_HASH
           )
         }
       }

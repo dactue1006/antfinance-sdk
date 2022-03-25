@@ -14,7 +14,9 @@ export {
   BAR_ADDRESS,
   MAKER_ADDRESS,
   TIMELOCK_ADDRESS,
-  MINIMUM_LIQUIDITY
+  MINIMUM_LIQUIDITY,
+  THIRD_PARTY_INFO,
+  ANT_TOKEN_ADDRESS
 } from './constants'
 
 export * from './errors'
