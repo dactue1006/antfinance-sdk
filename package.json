@@ -1,7 +1,7 @@
 {
   "name": "@dactue1006/sdk",
   "license": "MIT",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "🛠 An SDK for building applications on top of ANTFINANCE.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
