@@ -28,15 +28,15 @@ export class Pair {
   public readonly liquidityToken: Token
   private readonly tokenAmounts: [TokenAmount, TokenAmount]
 
-  public static getAddress(tokenA: Token, tokenB: Token, isUsePancake?: boolean): string {
+  public static getAddress(tokenA: Token, tokenB: Token, isUseThirdParty?: boolean): string {
     const tokens = tokenA.sortsBefore(tokenB) ? [tokenA, tokenB] : [tokenB, tokenA] // does safety checks
     if (PAIR_ADDRESS_CACHE?.[tokens[0].address]?.[tokens[1].address] === undefined) {
       console.log(PAIR_ADDRESS_CACHE)
 
-      const factoryAddress = isUsePancake
+      const factoryAddress = isUseThirdParty
         ? THIRD_PARTY_INFO[tokenA.chainId].FACTORY_ADDRESS || FACTORY_ADDRESS[tokenA.chainId]
         : FACTORY_ADDRESS[tokenA.chainId]
-      const initCodeHash = isUsePancake
+      const initCodeHash = isUseThirdParty
         ? THIRD_PARTY_INFO[tokenA.chainId].INIT_CODE_HASH || INIT_CODE_HASH[tokenA.chainId]
         : INIT_CODE_HASH[tokenA.chainId]
       console.log('factory: ', factoryAddress)
@@ -57,17 +57,17 @@ export class Pair {
     return PAIR_ADDRESS_CACHE[tokens[0].address][tokens[1].address]
   }
 
-  public constructor(tokenAmountA: TokenAmount, tokenAmountB: TokenAmount, isUsePancake?: boolean) {
+  public constructor(tokenAmountA: TokenAmount, tokenAmountB: TokenAmount, isUseThirdParty?: boolean) {
     const tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
       ? [tokenAmountA, tokenAmountB]
       : [tokenAmountB, tokenAmountA]
 
     this.liquidityToken = new Token(
       tokenAmounts[0].token.chainId,
-      Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token, isUsePancake),
+      Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token, isUseThirdParty),
       18,
-      !isUsePancake ? 'ANT-LP' : 'CAKE-LP',
-      !isUsePancake ? 'AntFinance LP' : 'PancakeSwap LP'
+      !isUseThirdParty ? 'ANT-LP' : 'CAKE-LP',
+      !isUseThirdParty ? 'AntFinance LP' : 'PancakeSwap LP'
     )
     this.tokenAmounts = tokenAmounts as [TokenAmount, TokenAmount]
   }
